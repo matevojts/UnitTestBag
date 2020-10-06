@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_flow_graph"
+    app:startDestination="@id/configFragment">
+
+    <fragment
+        android:id="@+id/configFragment"
+        android:name="hu.matevojts.unittestbag.ui.config.ConfigFragment"
+        tools:layout="@layout/fragment_config">
+
+        <action
+            android:id="@+id/action_to_openedBagFragment"
+            app:destination="@id/openedBagFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/openedBagFragment"
+        android:name="hu.matevojts.unittestbag.ui.openedbag.OpenedBagFragment"
+        tools:layout="@layout/fragment_opened_bag" />
+
+</navigation>
