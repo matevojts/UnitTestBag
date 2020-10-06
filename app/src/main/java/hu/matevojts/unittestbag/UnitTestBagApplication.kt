@@ -1,7 +1,7 @@
 package hu.matevojts.unittestbag
 
 import android.app.Application
-import hu.matevojts.unittestbag.ui.config.di.appModule
+import hu.matevojts.unittestbag.di.appModule
 import org.koin.core.context.startKoin
 
 class UnitTestBagApplication : Application() {

@@ -1,4 +1,4 @@
-package hu.matevojts.unittestbag.ui.config.di
+package hu.matevojts.unittestbag.di
 
 import hu.matevojts.unittestbag.ui.config.ConfigViewModel
 import org.koin.dsl.module
