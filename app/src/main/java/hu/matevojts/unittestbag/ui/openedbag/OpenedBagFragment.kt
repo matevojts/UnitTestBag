@@ -1,21 +1,21 @@
-package hu.matevojts.unittestbag.ui.config
+package hu.matevojts.unittestbag.ui.openedbag
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import hu.matevojts.unittestbag.databinding.FragmentConfigBinding
+import hu.matevojts.unittestbag.databinding.FragmentOpenedBagBinding
 import io.reactivex.disposables.CompositeDisposable
 import org.koin.android.ext.android.inject
 
-class ConfigFragment : Fragment() {
+class OpenedBagFragment : Fragment() {
 
-    private val viewModel by inject<ConfigViewModel>()
+    private val viewModel by inject<OpenedBagViewModel>()
     private var foregroundDisposables = CompositeDisposable()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
-        FragmentConfigBinding
+        FragmentOpenedBagBinding
             .inflate(inflater, container, false)
             .apply { vm = viewModel }
             .root

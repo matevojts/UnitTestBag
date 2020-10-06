@@ -1,10 +1,10 @@
-package hu.matevojts.unittestbag.ui.config
+package hu.matevojts.unittestbag.ui.openedbag
 
 import androidx.databinding.BaseObservable
 import hu.matevojts.unittestbag.datasource.BagDataSource
 import io.reactivex.disposables.CompositeDisposable
 
-class ConfigViewModel(private val bagDataSource: BagDataSource) : BaseObservable() {
+class OpenedBagViewModel(private val bagDataSource: BagDataSource) : BaseObservable() {
 
     private var foregroundDisposables = CompositeDisposable()
 
