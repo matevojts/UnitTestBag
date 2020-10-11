@@ -27,7 +27,7 @@ class ConfigFragment : Fragment() {
         viewModel.onViewResumed()
         foregroundDisposables = CompositeDisposable()
 
-        viewModel.openBag
+        viewModel.output.openBag
             .subscribe { this.findNavController().navigate(ConfigFragmentDirections.actionToOpenedBagFragment()) }
             .addTo(foregroundDisposables)
     }

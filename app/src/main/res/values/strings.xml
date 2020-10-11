@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Unit Test Bag</string>
+    <string name="config_edittext_hint_unlimited_value">Values > 9 -> Unlimited</string>
 </resources>
