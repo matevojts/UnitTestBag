@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <import type="android.view.View" />
+
+        <import type="androidx.recyclerview.widget.LinearLayoutManager" />
 
         <variable
             name="vm"
@@ -21,10 +24,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Opened bag"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/bagItems"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/bagItems"
+            itemLayout="@{@layout/layout_bag_item}"
+            items="@{vm.items}"
+            orientation="@{LinearLayoutManager.VERTICAL}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:nestedScrollingEnabled="false"
+            android:overScrollMode="never"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:itemCount="2"
+            tools:listitem="@layout/layout_bag_item" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>
