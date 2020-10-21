@@ -33,7 +33,11 @@ class OpenedBagViewModel(private val bagDataSource: BagDataSource) : BaseObserva
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { bag ->
-                    populateBagItems(bag)
+                    if (bag.red == 0 && bag.blue == 0) {
+                        output.emptyBag.trigger()
+                    } else {
+                        populateBagItems(bag)
+                    }
                 },
                 { Timber.e(it) },
                 { output.emptyBag.trigger() }
