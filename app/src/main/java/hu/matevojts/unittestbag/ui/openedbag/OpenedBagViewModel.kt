@@ -51,9 +51,7 @@ class OpenedBagViewModel(
 
     private fun populateBagItems(bag: Bag) {
         addRedBagItem(bag)
-        if (bag.blue > 0) {
-            items.add(BagItemViewModel(BagItem(R.drawable.ball_blue, "Blue Title", "Blue description")))
-        }
+        addBlueBagItem(bag)
     }
 
     private fun addRedBagItem(bag: Bag) {
@@ -67,6 +65,19 @@ class OpenedBagViewModel(
         val title = resourceProvider.getString(R.string.red_item_title)
 
         items.add(BagItemViewModel(BagItem(R.drawable.ball_red, title, description)))
+    }
+
+    private fun addBlueBagItem(bag: Bag) {
+        val description = when (bag.blue) {
+            in Int.MIN_VALUE..0 -> return
+            1 -> resourceProvider.getString(R.string.blue_item_description_singular, bag.blue)
+            in 2..Bag.ITEM_MAX_COUNT -> resourceProvider.getString(R.string.blue_item_description_plural, bag.blue)
+            else -> resourceProvider.getString(R.string.blue_item_description_unlimited)
+        }
+
+        val title = resourceProvider.getString(R.string.blue_item_title)
+
+        items.add(BagItemViewModel(BagItem(R.drawable.ball_blue, title, description)))
     }
 
     fun onViewPaused() {
