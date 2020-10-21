@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Unit Test Bag</string>
+    <string name="config_title">Configure your bag</string>
     <string name="config_edittext_hint_unlimited_value">Values > 9 -> Unlimited</string>
     <string name="config_empty_bag_error_message">Your bag will be empty, please add something!</string>
     <string name="opened_bag_empty_bag_error_message">Your bag is empty, please add something!</string>
+    <string name="opened_bag_title">Your bag contains:</string>
 </resources>
