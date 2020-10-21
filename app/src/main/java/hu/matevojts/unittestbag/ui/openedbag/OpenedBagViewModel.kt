@@ -54,6 +54,10 @@ class OpenedBagViewModel(private val bagDataSource: BagDataSource) : BaseObserva
         }
     }
 
+    private fun addRedBagItem(bag: Bag) {
+
+    }
+
     fun onViewPaused() {
         foregroundDisposables.clear()
     }
