@@ -7,8 +7,8 @@ import com.jakewharton.rxrelay2.PublishRelay
 import hu.matevojts.unittestbag.R
 import hu.matevojts.unittestbag.datasource.BagDataSource
 import hu.matevojts.unittestbag.model.Bag
+import hu.matevojts.unittestbag.observeOnMainThread
 import hu.matevojts.unittestbag.trigger
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import timber.log.Timber
@@ -30,7 +30,7 @@ class OpenedBagViewModel(private val bagDataSource: BagDataSource) : BaseObserva
 
         bagDataSource
             .getBag()
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOnMainThread()
             .subscribe(
                 { bag ->
                     if (bag.red == 0 && bag.blue == 0) {
