@@ -9,7 +9,7 @@ import org.koin.dsl.module
 
 val appModule = module {
     factory { ConfigViewModel(get()) }
-    factory { OpenedBagViewModel(get()) }
+    factory { OpenedBagViewModel(get(), get()) }
     single { BagDataSource() }
     single { ResourceProvider(androidContext()) }
 }

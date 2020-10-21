@@ -5,6 +5,7 @@ import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableList
 import com.jakewharton.rxrelay2.PublishRelay
 import hu.matevojts.unittestbag.R
+import hu.matevojts.unittestbag.ResourceProvider
 import hu.matevojts.unittestbag.datasource.BagDataSource
 import hu.matevojts.unittestbag.model.Bag
 import hu.matevojts.unittestbag.observeOnMainThread
@@ -13,7 +14,10 @@ import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
 import timber.log.Timber
 
-class OpenedBagViewModel(private val bagDataSource: BagDataSource) : BaseObservable() {
+class OpenedBagViewModel(
+    private val bagDataSource: BagDataSource,
+    private val resourceProvider: ResourceProvider
+) : BaseObservable() {
 
     val items: ObservableList<BagItemViewModel> = ObservableArrayList()
 
@@ -46,16 +50,23 @@ class OpenedBagViewModel(private val bagDataSource: BagDataSource) : BaseObserva
     }
 
     private fun populateBagItems(bag: Bag) {
-        if (bag.red > 0) {
-            items.add(BagItemViewModel(BagItem(R.drawable.ball_red, "Red Title", "Red description")))
-        }
+        addRedBagItem(bag)
         if (bag.blue > 0) {
             items.add(BagItemViewModel(BagItem(R.drawable.ball_blue, "Blue Title", "Blue description")))
         }
     }
 
     private fun addRedBagItem(bag: Bag) {
+        val description = when (bag.red) {
+            in Int.MIN_VALUE..0 -> return
+            1 -> resourceProvider.getString(R.string.red_item_description_singular, bag.red)
+            in 2..Bag.ITEM_MAX_COUNT -> resourceProvider.getString(R.string.red_item_description_plural, bag.red)
+            else -> resourceProvider.getString(R.string.red_item_description_unlimited)
+        }
 
+        val title = resourceProvider.getString(R.string.red_item_title)
+
+        items.add(BagItemViewModel(BagItem(R.drawable.ball_red, title, description)))
     }
 
     fun onViewPaused() {
