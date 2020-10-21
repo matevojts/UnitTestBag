@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -15,38 +14,36 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/openedBagTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_margin="16dp"
             android:text="@string/opened_bag_title"
             android:textAllCaps="true"
-            android:textSize="19sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textSize="19sp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/bagItems"
             itemLayout="@{@layout/layout_bag_item}"
             items="@{vm.items}"
             orientation="@{LinearLayoutManager.VERTICAL}"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:nestedScrollingEnabled="false"
             android:overScrollMode="never"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/openedBagTitle"
             tools:itemCount="2"
             tools:listitem="@layout/layout_bag_item" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <include layout="@layout/layout_project_description" />
+
+    </LinearLayout>
 
 </layout>

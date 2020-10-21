@@ -73,6 +73,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/blueEditText" />
 
+        <include layout="@layout/layout_project_description" />
+
     </LinearLayout>
 
 </layout>

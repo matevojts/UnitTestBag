@@ -13,4 +13,5 @@
     <string name="blue_item_description_singular">You have %d blue item.</string>
     <string name="blue_item_description_plural">You have %d blue items.</string>
     <string name="blue_item_description_unlimited">You have unlimited blue items.</string>
+    <string name="project_description">This is a showcase app for a unit testing article. Check out the app here https://github.com/matevojts/UnitTestBag</string>
 </resources>
