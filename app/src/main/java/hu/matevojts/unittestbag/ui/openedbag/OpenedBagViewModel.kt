@@ -47,10 +47,10 @@ class OpenedBagViewModel(private val bagDataSource: BagDataSource) : BaseObserva
 
     private fun populateBagItems(bag: Bag) {
         if (bag.red > 0) {
-            items.add(BagItemViewModel(BagItem(R.drawable.ic_launcher_background, "Red Title", "Red description")))
+            items.add(BagItemViewModel(BagItem(R.drawable.ball_red, "Red Title", "Red description")))
         }
         if (bag.blue > 0) {
-            items.add(BagItemViewModel(BagItem(R.drawable.ic_launcher_foreground, "Blue Title", "Blue description")))
+            items.add(BagItemViewModel(BagItem(R.drawable.ball_blue, "Blue Title", "Blue description")))
         }
     }
 

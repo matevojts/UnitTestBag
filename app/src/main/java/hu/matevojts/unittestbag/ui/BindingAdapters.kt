@@ -1,5 +1,6 @@
 package hu.matevojts.unittestbag.ui
 
+import android.widget.ImageView
 import androidx.annotation.LayoutRes
 import androidx.databinding.BindingAdapter
 import androidx.databinding.library.baseAdapters.BR
@@ -16,4 +17,9 @@ fun setItems(recyclerView: RecyclerView, items: List<Any>, @LayoutRes layoutResI
 fun setOrientation(recyclerView: RecyclerView, orientation: Int) {
     val layoutManager = LinearLayoutManager(recyclerView.context, orientation, false)
     recyclerView.layoutManager = layoutManager
+}
+
+@BindingAdapter("android:src")
+fun setImageResource(imageView: ImageView, resource: Int) {
+    imageView.setImageResource(resource)
 }
