@@ -37,11 +37,7 @@ class OpenedBagViewModel(
             .observeOnMainThread()
             .subscribe(
                 { bag ->
-                    if (bag.red == 0 && bag.blue == 0) {
-                        output.emptyBag.trigger()
-                    } else {
-                        populateBagItems(bag)
-                    }
+                    render(bag)
                 },
                 { Timber.e(it) },
                 { output.emptyBag.trigger() }
@@ -49,9 +45,13 @@ class OpenedBagViewModel(
             .addTo(foregroundDisposables)
     }
 
-    private fun populateBagItems(bag: Bag) {
-        addRedBagItem(bag)
-        addBlueBagItem(bag)
+    private fun render(bag: Bag) {
+        if (bag.red == 0 && bag.blue == 0) {
+            output.emptyBag.trigger()
+        } else {
+            addRedBagItem(bag)
+            addBlueBagItem(bag)
+        }
     }
 
     private fun addRedBagItem(bag: Bag) {
