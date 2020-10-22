@@ -22,8 +22,8 @@ class OpenedBagViewModelTest {
 
     @Before
     fun setUp() {
-        every { resourceProvider.getString(any()) } returns ""
-        every { resourceProvider.getString(any(), any()) } returns ""
+        every { resourceProvider.getString(any()) } returns "defaultText"
+        every { resourceProvider.getString(any(), any()) } returns "defaultText"
     }
 
     @Test
