@@ -73,4 +73,21 @@ class OpenedBagViewModelTest {
         assert(service.items[0].bagItem == expectedRedItem)
         assert(service.items[1].bagItem == expectedBlueItem)
     }
+
+    @Test
+    fun nineRedAndBlueItemsInBag_BagLoadedOnOpenedBagScreen_ProperBagItemsPopulated() {
+        every { bagDataSource.getBag() } returns Maybe.just(Bag(9, 9))
+        every { resourceProvider.getString(R.string.red_item_title) } returns redTitle
+        every { resourceProvider.getString(R.string.red_item_description_plural, 9) } returns redDescription
+        every { resourceProvider.getString(R.string.blue_item_title) } returns blueTitle
+        every { resourceProvider.getString(R.string.blue_item_description_plural, 9) } returns blueDescription
+
+        val expectedRedItem = BagItem(R.drawable.ball_red, redTitle, redDescription)
+        val expectedBlueItem = BagItem(R.drawable.ball_blue, blueTitle, blueDescription)
+
+        service.onViewResumed()
+        assert(service.items.count() == 2)
+        assert(service.items[0].bagItem == expectedRedItem)
+        assert(service.items[1].bagItem == expectedBlueItem)
+    }
 }
