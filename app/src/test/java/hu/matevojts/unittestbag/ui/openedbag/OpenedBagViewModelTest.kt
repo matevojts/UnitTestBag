@@ -1,5 +1,6 @@
 package hu.matevojts.unittestbag.ui.openedbag
 
+import hu.matevojts.unittestbag.R
 import hu.matevojts.unittestbag.ResourceProvider
 import hu.matevojts.unittestbag.datasource.BagDataSource
 import hu.matevojts.unittestbag.model.Bag
@@ -54,5 +55,22 @@ class OpenedBagViewModelTest {
         service.onViewResumed()
         emptyBagError.assertValueCount(1)
         emptyBagError.assertNotComplete()
+    }
+
+    @Test
+    fun unlimitedRedAndBlueItemsInBag_BagLoadedOnOpenedBagScreen_ProperBagItemsPopulated() {
+        every { bagDataSource.getBag() } returns Maybe.just(Bag(10, 10))
+        every { resourceProvider.getString(R.string.red_item_title) } returns redTitle
+        every { resourceProvider.getString(R.string.red_item_description_unlimited) } returns redDescription
+        every { resourceProvider.getString(R.string.blue_item_title) } returns blueTitle
+        every { resourceProvider.getString(R.string.blue_item_description_unlimited) } returns blueDescription
+
+        val expectedRedItem = BagItem(R.drawable.ball_red, redTitle, redDescription)
+        val expectedBlueItem = BagItem(R.drawable.ball_blue, blueTitle, blueDescription)
+
+        service.onViewResumed()
+        assert(service.items.count() == 2)
+        assert(service.items[0].bagItem == expectedRedItem)
+        assert(service.items[1].bagItem == expectedBlueItem)
     }
 }
