@@ -90,4 +90,30 @@ class OpenedBagViewModelTest {
         assert(service.items[0].bagItem == expectedRedItem)
         assert(service.items[1].bagItem == expectedBlueItem)
     }
+
+    @Test
+    fun oneRedAndZeroBlueItemsInBag_BagLoadedOnOpenedBagScreen_ProperBagItemsPopulated() {
+        every { bagDataSource.getBag() } returns Maybe.just(Bag(red = 1, blue = 0))
+        every { resourceProvider.getString(R.string.red_item_title) } returns redTitle
+        every { resourceProvider.getString(R.string.red_item_description_singular, 1) } returns redDescription
+
+        val expectedRedItem = BagItem(R.drawable.ball_red, redTitle, redDescription)
+
+        service.onViewResumed()
+        assert(service.items.count() == 1)
+        assert(service.items[0].bagItem == expectedRedItem)
+    }
+
+    @Test
+    fun zeroRedAndOneBlueItemsInBag_BagLoadedOnOpenedBagScreen_ProperBagItemsPopulated() {
+        every { bagDataSource.getBag() } returns Maybe.just(Bag(red = 0, blue = 1))
+        every { resourceProvider.getString(R.string.blue_item_title) } returns blueTitle
+        every { resourceProvider.getString(R.string.blue_item_description_singular, 1) } returns blueDescription
+
+        val expectedBlueItem = BagItem(R.drawable.ball_blue, blueTitle, blueDescription)
+
+        service.onViewResumed()
+        assert(service.items.count() == 1)
+        assert(service.items[0].bagItem == expectedBlueItem)
+    }
 }
