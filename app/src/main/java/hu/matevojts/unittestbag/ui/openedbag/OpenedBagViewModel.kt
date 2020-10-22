@@ -78,7 +78,11 @@ class OpenedBagViewModel(
             else -> resourceProvider.getString(R.string.blue_item_description_unlimited)
         }
 
-        val title = resourceProvider.getString(R.string.blue_item_title)
+        val title = if (bag.red > 0) {
+            resourceProvider.getString(R.string.blue_item_title_multiple)
+        } else {
+            resourceProvider.getString(R.string.blue_item_title_single)
+        }
 
         items.add(BagItemViewModel(BagItem(R.drawable.ball_blue, title, description)))
     }

@@ -9,7 +9,8 @@
     <string name="red_item_description_singular">You have %d red item.</string>
     <string name="red_item_description_plural">You have %d red items.</string>
     <string name="red_item_description_unlimited">You have unlimited red items.</string>
-    <string name="blue_item_title">Blue ball</string>
+    <string name="blue_item_title_single">Blue ball</string>
+    <string name="blue_item_title_multiple">Blue ball too</string>
     <string name="blue_item_description_singular">You have %d blue item.</string>
     <string name="blue_item_description_plural">You have %d blue items.</string>
     <string name="blue_item_description_unlimited">You have unlimited blue items.</string>

@@ -62,7 +62,7 @@ class OpenedBagViewModelTest {
         every { bagDataSource.getBag() } returns Maybe.just(Bag(10, 10))
         every { resourceProvider.getString(R.string.red_item_title) } returns redTitle
         every { resourceProvider.getString(R.string.red_item_description_unlimited) } returns redDescription
-        every { resourceProvider.getString(R.string.blue_item_title) } returns blueTitle
+        every { resourceProvider.getString(R.string.blue_item_title_multiple) } returns blueTitle
         every { resourceProvider.getString(R.string.blue_item_description_unlimited) } returns blueDescription
 
         val expectedRedItem = BagItem(R.drawable.ball_red, redTitle, redDescription)
@@ -79,7 +79,7 @@ class OpenedBagViewModelTest {
         every { bagDataSource.getBag() } returns Maybe.just(Bag(9, 9))
         every { resourceProvider.getString(R.string.red_item_title) } returns redTitle
         every { resourceProvider.getString(R.string.red_item_description_plural, 9) } returns redDescription
-        every { resourceProvider.getString(R.string.blue_item_title) } returns blueTitle
+        every { resourceProvider.getString(R.string.blue_item_title_multiple) } returns blueTitle
         every { resourceProvider.getString(R.string.blue_item_description_plural, 9) } returns blueDescription
 
         val expectedRedItem = BagItem(R.drawable.ball_red, redTitle, redDescription)
@@ -107,7 +107,7 @@ class OpenedBagViewModelTest {
     @Test
     fun zeroRedAndOneBlueItemsInBag_BagLoadedOnOpenedBagScreen_ProperBagItemsPopulated() {
         every { bagDataSource.getBag() } returns Maybe.just(Bag(red = 0, blue = 1))
-        every { resourceProvider.getString(R.string.blue_item_title) } returns blueTitle
+        every { resourceProvider.getString(R.string.blue_item_title_single) } returns blueTitle
         every { resourceProvider.getString(R.string.blue_item_description_singular, 1) } returns blueDescription
 
         val expectedBlueItem = BagItem(R.drawable.ball_blue, blueTitle, blueDescription)
