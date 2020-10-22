@@ -1,9 +1,11 @@
 package hu.matevojts.unittestbag.ui.config
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -30,7 +32,10 @@ class ConfigFragment : Fragment() {
         foregroundDisposables = CompositeDisposable()
 
         viewModel.output.openBag
-            .subscribe { this.findNavController().navigate(ConfigFragmentDirections.actionToOpenedBagFragment()) }
+            .subscribe {
+                view?.hideKeyboard()
+                this.findNavController().navigate(ConfigFragmentDirections.actionToOpenedBagFragment())
+            }
             .addTo(foregroundDisposables)
 
         viewModel.output.invalidItems
@@ -44,5 +49,10 @@ class ConfigFragment : Fragment() {
         super.onPause()
         viewModel.onViewPaused()
         foregroundDisposables.clear()
+    }
+
+    private fun View.hideKeyboard() {
+        (context?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager)
+            ?.hideSoftInputFromWindow(this.windowToken, 0)
     }
 }
