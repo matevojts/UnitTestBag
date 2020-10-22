@@ -39,7 +39,10 @@ class OpenedBagViewModel(
                 { bag ->
                     render(bag)
                 },
-                { Timber.e(it) },
+                {
+                    Timber.e(it)
+                    output.emptyBag.trigger()
+                },
                 { output.emptyBag.trigger() }
             )
             .addTo(foregroundDisposables)
