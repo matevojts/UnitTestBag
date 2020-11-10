@@ -4,6 +4,7 @@ import hu.matevojts.unittestbag.R
 import hu.matevojts.unittestbag.ResourceProvider
 import hu.matevojts.unittestbag.datasource.BagDataSource
 import hu.matevojts.unittestbag.model.Bag
+import io.mockk.clearAllMocks
 import io.mockk.every
 import io.mockk.mockk
 import io.reactivex.Maybe
@@ -23,6 +24,7 @@ class OpenedBagViewModelTest {
 
     @Before
     fun setUp() {
+        clearAllMocks()
         every { resourceProvider.getString(any()) } returns "defaultText"
         every { resourceProvider.getString(any(), any()) } returns "defaultText"
     }
