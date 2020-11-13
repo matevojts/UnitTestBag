@@ -20,7 +20,7 @@ class OpenedBagViewModelTest {
     private val blueTitle = "expectedBlueTitle"
     private val blueDescription = "expectedBlueDescription"
 
-    private val service by lazy { OpenedBagViewModel(bagDataSource, resourceProvider) }
+    private val viewModel by lazy { OpenedBagViewModel(bagDataSource, resourceProvider) }
 
     @Before
     fun setUp() {
@@ -32,9 +32,9 @@ class OpenedBagViewModelTest {
     @Test
     fun thereIsNoBag_BagLoadedOnOpenedBagScreen_EmptyBagEventSent() {
         every { bagDataSource.getBag() } returns Maybe.empty()
-        val emptyBagError = service.output.emptyBag.test()
+        val emptyBagError = viewModel.output.emptyBag.test()
 
-        service.onViewResumed()
+        viewModel.onViewResumed()
         emptyBagError.assertValueCount(1)
         emptyBagError.assertNotComplete()
     }
@@ -42,9 +42,9 @@ class OpenedBagViewModelTest {
     @Test
     fun thereIsBagWithZeroValuesInIt_BagLoadedOnOpenedBagScreen_EmptyBagEventSent() {
         every { bagDataSource.getBag() } returns Maybe.just(Bag(0, 0))
-        val emptyBagError = service.output.emptyBag.test()
+        val emptyBagError = viewModel.output.emptyBag.test()
 
-        service.onViewResumed()
+        viewModel.onViewResumed()
         emptyBagError.assertValueCount(1)
         emptyBagError.assertNotComplete()
     }
@@ -52,9 +52,9 @@ class OpenedBagViewModelTest {
     @Test
     fun errorDuringGettingBag_BagLoadedOnOpenedBagScreen_EmptyBagEventSent() {
         every { bagDataSource.getBag() } returns Maybe.error(Throwable())
-        val emptyBagError = service.output.emptyBag.test()
+        val emptyBagError = viewModel.output.emptyBag.test()
 
-        service.onViewResumed()
+        viewModel.onViewResumed()
         emptyBagError.assertValueCount(1)
         emptyBagError.assertNotComplete()
     }
@@ -70,10 +70,10 @@ class OpenedBagViewModelTest {
         val expectedRedItem = BagItem(R.drawable.ball_red, redTitle, redDescription)
         val expectedBlueItem = BagItem(R.drawable.ball_blue, blueTitle, blueDescription)
 
-        service.onViewResumed()
-        assert(service.items.count() == 2)
-        assert(service.items[0].bagItem == expectedRedItem)
-        assert(service.items[1].bagItem == expectedBlueItem)
+        viewModel.onViewResumed()
+        assert(viewModel.items.count() == 2)
+        assert(viewModel.items[0].bagItem == expectedRedItem)
+        assert(viewModel.items[1].bagItem == expectedBlueItem)
     }
 
     @Test
@@ -87,10 +87,10 @@ class OpenedBagViewModelTest {
         val expectedRedItem = BagItem(R.drawable.ball_red, redTitle, redDescription)
         val expectedBlueItem = BagItem(R.drawable.ball_blue, blueTitle, blueDescription)
 
-        service.onViewResumed()
-        assert(service.items.count() == 2)
-        assert(service.items[0].bagItem == expectedRedItem)
-        assert(service.items[1].bagItem == expectedBlueItem)
+        viewModel.onViewResumed()
+        assert(viewModel.items.count() == 2)
+        assert(viewModel.items[0].bagItem == expectedRedItem)
+        assert(viewModel.items[1].bagItem == expectedBlueItem)
     }
 
     @Test
@@ -101,9 +101,9 @@ class OpenedBagViewModelTest {
 
         val expectedRedItem = BagItem(R.drawable.ball_red, redTitle, redDescription)
 
-        service.onViewResumed()
-        assert(service.items.count() == 1)
-        assert(service.items[0].bagItem == expectedRedItem)
+        viewModel.onViewResumed()
+        assert(viewModel.items.count() == 1)
+        assert(viewModel.items[0].bagItem == expectedRedItem)
     }
 
     @Test
@@ -114,8 +114,8 @@ class OpenedBagViewModelTest {
 
         val expectedBlueItem = BagItem(R.drawable.ball_blue, blueTitle, blueDescription)
 
-        service.onViewResumed()
-        assert(service.items.count() == 1)
-        assert(service.items[0].bagItem == expectedBlueItem)
+        viewModel.onViewResumed()
+        assert(viewModel.items.count() == 1)
+        assert(viewModel.items[0].bagItem == expectedBlueItem)
     }
 }
