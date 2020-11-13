@@ -31,7 +31,7 @@ class OpenedBagViewModelTest {
 
     @Test
     fun thereIsNoBag_BagLoadedOnOpenedBagScreen_EmptyBagEventSent() {
-        every { bagDataSource.getBag() } returns Maybe.empty()
+        givenBagState(BagState.Empty)
         val emptyBagError = viewModel.output.emptyBag.test()
 
         viewModel.onViewResumed()
@@ -41,7 +41,7 @@ class OpenedBagViewModelTest {
 
     @Test
     fun thereIsBagWithZeroValuesInIt_BagLoadedOnOpenedBagScreen_EmptyBagEventSent() {
-        every { bagDataSource.getBag() } returns Maybe.just(Bag(0, 0))
+        givenBagState(BagState.Error)
         val emptyBagError = viewModel.output.emptyBag.test()
 
         viewModel.onViewResumed()
@@ -117,5 +117,19 @@ class OpenedBagViewModelTest {
         viewModel.onViewResumed()
         assert(viewModel.items.count() == 1)
         assert(viewModel.items[0].bagItem == expectedBlueItem)
+    }
+
+    private fun givenBagState(state: BagState) {
+        when (state) {
+            BagState.Empty -> every { bagDataSource.getBag() } returns Maybe.empty()
+            BagState.Error -> every { bagDataSource.getBag() } returns Maybe.error(Throwable())
+            is BagState.MockedBag -> TODO()
+        }
+    }
+
+    sealed class BagState {
+        object Empty : BagState()
+        object Error : BagState()
+        class MockedBag(val red: Int, val blue: Int) : BagState()
     }
 }
