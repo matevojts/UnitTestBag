@@ -8,11 +8,13 @@ class BagDataSource {
     private var bagCache: Bag? = null
 
     fun getBag(): Maybe<Bag> =
-        bagCache.let { bag ->
-            if (bag != null) {
-                Maybe.just(bag)
-            } else {
-                Maybe.empty()
+        Maybe.defer {
+            bagCache.let { bag ->
+                if (bag != null) {
+                    Maybe.just(bag)
+                } else {
+                    Maybe.empty()
+                }
             }
         }
 
