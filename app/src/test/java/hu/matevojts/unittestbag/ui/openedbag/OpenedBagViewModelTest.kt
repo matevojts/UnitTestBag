@@ -51,7 +51,7 @@ class OpenedBagViewModelTest {
 
     @Test
     fun errorDuringGettingBag_BagLoadedOnOpenedBagScreen_EmptyBagEventSent() {
-        every { bagDataSource.getBag() } returns Maybe.error(Throwable())
+        givenBagState(BagState.Error)
         val emptyBagError = viewModel.output.emptyBag.test()
 
         viewModel.onViewResumed()
@@ -61,7 +61,7 @@ class OpenedBagViewModelTest {
 
     @Test
     fun unlimitedRedAndBlueItemsInBag_BagLoadedOnOpenedBagScreen_ProperBagItemsPopulated() {
-        every { bagDataSource.getBag() } returns Maybe.just(Bag(10, 10))
+        givenBagState(BagState.MockedBag(10, 10))
         every { resourceProvider.getString(R.string.red_item_title) } returns redTitle
         every { resourceProvider.getString(R.string.red_item_description_unlimited) } returns redDescription
         every { resourceProvider.getString(R.string.blue_item_title_multiple) } returns blueTitle
@@ -78,7 +78,7 @@ class OpenedBagViewModelTest {
 
     @Test
     fun nineRedAndBlueItemsInBag_BagLoadedOnOpenedBagScreen_ProperBagItemsPopulated() {
-        every { bagDataSource.getBag() } returns Maybe.just(Bag(9, 9))
+        givenBagState(BagState.MockedBag(9, 9))
         every { resourceProvider.getString(R.string.red_item_title) } returns redTitle
         every { resourceProvider.getString(R.string.red_item_description_plural, 9) } returns redDescription
         every { resourceProvider.getString(R.string.blue_item_title_multiple) } returns blueTitle
@@ -95,7 +95,7 @@ class OpenedBagViewModelTest {
 
     @Test
     fun oneRedAndZeroBlueItemsInBag_BagLoadedOnOpenedBagScreen_ProperBagItemsPopulated() {
-        every { bagDataSource.getBag() } returns Maybe.just(Bag(red = 1, blue = 0))
+        givenBagState(BagState.MockedBag(red = 1, blue = 0))
         every { resourceProvider.getString(R.string.red_item_title) } returns redTitle
         every { resourceProvider.getString(R.string.red_item_description_singular, 1) } returns redDescription
 
@@ -108,7 +108,7 @@ class OpenedBagViewModelTest {
 
     @Test
     fun zeroRedAndOneBlueItemsInBag_BagLoadedOnOpenedBagScreen_ProperBagItemsPopulated() {
-        every { bagDataSource.getBag() } returns Maybe.just(Bag(red = 0, blue = 1))
+        givenBagState(BagState.MockedBag(red = 0, blue = 1))
         every { resourceProvider.getString(R.string.blue_item_title_single) } returns blueTitle
         every { resourceProvider.getString(R.string.blue_item_description_singular, 1) } returns blueDescription
 
@@ -123,7 +123,7 @@ class OpenedBagViewModelTest {
         when (state) {
             BagState.Empty -> every { bagDataSource.getBag() } returns Maybe.empty()
             BagState.Error -> every { bagDataSource.getBag() } returns Maybe.error(Throwable())
-            is BagState.MockedBag -> TODO()
+            is BagState.MockedBag -> every { bagDataSource.getBag() } returns Maybe.just(Bag(state.red, state.blue))
         }
     }
 
